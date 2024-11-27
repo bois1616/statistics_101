@@ -10,6 +10,4 @@ def pairwise_distances2(data: np.array) -> np.array:
 
 
 if __name__ == '__main__':
-    data = np.array([[1, 2], [3, 4], [5, 6]])
-    print(np.sqrt(pairwise_distances(data)))
-    print(pairwise_distances2(data))
+    print('\033[2J\033[H\nNur für Import, nicht ausführbar!\n')
