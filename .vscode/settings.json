@@ -21,7 +21,16 @@
 
     "files.exclude": {
         "**/.pytest_cache": true,
-        "**/.vscode": true,
+        "**/.vscode": false,
         "**/__pycache__": true
+    },
+    {
+        "commands": [
+            {
+                "command": "extension.createPythonFile",
+                "title": "Neue PYTHON Datei",
+                "category": "Benutzerdefiniert"
+            }
+        ]
     }
 }
