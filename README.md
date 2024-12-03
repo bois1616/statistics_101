@@ -1,1 +1,0 @@
-https://towardsdatascience.com/understanding-t-sne-by-implementing-2baf3a987ab3
