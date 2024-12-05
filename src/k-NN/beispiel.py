@@ -12,10 +12,14 @@ labels = iris.target
 
 # Aufteilen des Datensatzes in Trainings- und Testdaten
 # 70% der Daten werden für das Training verwendet, 30% für das Testen
-# Der random_state wird auf 42 gesetzt, damit die Aufteilung reproduzierbar ist
-feature_training, feature_test, label_training, label_test = train_test_split(features, labels, 
-                                                    test_size=0.3, 
-                                                    random_state=42)
+# Der random_state wird beliebig auf 42 gesetzt, damit die Aufteilung 
+# reproduzierbar ist
+feature_training, \
+ feature_test, \
+ label_training, \
+ label_test = train_test_split(features, labels, 
+                               test_size=0.3, 
+                               random_state=42)
 
 # Erstellen und Trainieren des k-NN-Klassifikators
 k = 3
