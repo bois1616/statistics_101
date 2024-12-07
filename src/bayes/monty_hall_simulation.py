@@ -62,7 +62,6 @@ def shuffle_doors(n_doors:int = 3) -> list:
     doors[random.randint(0, n_doors-1)] = True
     return doors
     
-
 if __name__ == "__main__":
     n_doors = 3
     n_runs = 300000
@@ -72,16 +71,16 @@ if __name__ == "__main__":
     for _ in range(n_runs):
         doors = shuffle_doors(n_doors)
         choice = random.randint(0, n_doors-1)
-        result = mh_sim_sr(choice, doors)
+        win,  switch = mh_sim_sr(choice, doors)
         # print(f'Player {["looses", "wins"][result[0]]}\tby '
         #      f'{"changing" if result[1] else "keeping"} the door')
-        if result[0]:
-            if result[1]:
+        if win:
+            if switch:
                 win_change += 1
             else:
                 win_keep += 1
         else:
-            if result[1]:
+            if switch:
                 loose_change += 1
             else:
                 loose_keep += 1
