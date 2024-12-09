@@ -1,89 +1,91 @@
-import numpy as np 
 import random
 from icecream import ic
 
+# Konfiguriere das Ausgabeformat
+def custom_output(output):
+    prefix = 'DEBUG | '
+    # Extrahiere den tatsächlichen String aus dem output
+    actual_output = output.split('\': ')[-1].strip().strip("'")
+    actual_output = bytes(actual_output, "utf-8").decode("unicode_escape")
+    # print(f'{output=}\t{actual_output=}')
+    print(prefix + actual_output)
 
-def monty_hall_simulation_ai(n=1000, switch=True):
-    # Anzahl der Gewinne
-    wins = 0
-    # Anzahl der Türen
-    doors = [0, 1, 2]
-    for _ in range(n):
-        # Auto hinter einer der Türen
-        car = np.random.randint(0, 3)
-        # Spieler wählt eine Tür
-        choice = np.random.randint(0, 3)
-        # Monty öffnet eine der verbleibenden Türen
-        open_door = np.random.choice([door for door in doors if door != choice and door != car])
-        # Spieler wechselt die Tür
-        if switch:
-            choice = [door for door in doors if door != choice and door != open_door][0]
-        # Überprüfen, ob der Spieler gewonnen hat
-        if choice == car:
-            wins += 1
-    return wins / n
+ic.configureOutput(includeContext=False, outputFunction=custom_output)
+# ic.disable()
 
-def mh_sim_sr(choice:int, doors:list)-> bool:
+
+def mh_sim_sr(choice:int, doors:list) -> int:
     """
     Monty Hall Simulation
     Params:
     choice: int - the door the player chooses
     doors: list - the doors available (col1) and the car location (col2)
     Returns:
-    bool - True, if the player wins
+    int - the last choice of the player
     """
     nr_doors = len(doors)
     assert choice < nr_doors, "Invalid choice"
     assert sum(doors) == 1, "There must be exactly one car"
     
-    # Doors count 1 to nr_doors, arrays count 0 to nr_doors-1
-    choice -= 1
-    
     # Monty opens a random door (not the player's choice and not the car)
     other = random.choice([door for door in range(nr_doors) if door != choice and not doors[door]])
-    
-    # Player switches to the other door
-    # ic("Monty opens door", other+1) 
+    ic(f'Monty opens door {other+1}')
     
     # Player switches to the other door?
     if random.random() > 0.5:
-        # ic("Player changes the door")
+        # Player changes the door"
         new_choice = random.choice([door for door in range(nr_doors) if door != choice and door != other])
     else:
-        # ic("Player keeps the door")
+        # Player keeps the door
         new_choice = choice 
+        
+    
+    ic(f'choice (origin): {choice+1}\tchoice (new): {new_choice+1}')
        
     # Player wins if the car is behind the chosen door
-    return doors[new_choice], new_choice != choice
+    return new_choice
 
     
 def shuffle_doors(n_doors:int = 3) -> list:
     doors = [False for _ in range(n_doors)]
     doors[random.randint(0, n_doors-1)] = True
+    
     return doors
+    
     
 if __name__ == "__main__":
     n_doors = 3
-    n_runs = 300000
-    
+    n_runs = 30000
+    ic.disable() if n_runs > 50 else None
+            
     # result, change = mh_sim_sr(choice, doors)
-    win_keep = win_change = loose_keep = loose_change = 0
+    win_keep = win_change = 0
     for _ in range(n_runs):
+        ic('\n')
+        ic(f'Run: {_+1}')
+        # setup new game
         doors = shuffle_doors(n_doors)
+        ic(f'{doors=}')
+        # player chooses a door
         choice = random.randint(0, n_doors-1)
-        win,  switch = mh_sim_sr(choice, doors)
-        # print(f'Player {["looses", "wins"][result[0]]}\tby '
-        #      f'{"changing" if result[1] else "keeping"} the door')
+        
+        ic(f'Car behind door {doors.index(True)+1}\tChoice: {choice+1}')
+
+        new_choice = mh_sim_sr(choice, doors)
+        win = doors[new_choice]
+        switch = new_choice != choice
+
+        ic(f'Player {"wins" if win else "looses"}\twith {"switching" if switch else "keeping"} (new choice: {new_choice+1})')
+        
         if win:
             if switch:
                 win_change += 1
             else:
                 win_keep += 1
-        else:
-            if switch:
-                loose_change += 1
-            else:
-                loose_keep += 1
     
-    print(f'Wins by changing: {win_change}\tWins by keeping: {win_keep}')
-    print(f'Ratio: {win_change / win_keep:.2f}') if win_keep > 0 else print('No wins by keeping')
+    print(f'{n_runs} runs\nWins by changing:\t{win_change}\tWins by keeping: {win_keep}')
+    if win_keep > 0:
+        print(f'Ratio W_c/W_k: {win_change / win_keep:.2f}')
+    else:
+        print('No wins by keeping')
+    
