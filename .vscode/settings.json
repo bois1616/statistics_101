@@ -1,36 +1,23 @@
+// Die Standardeinstellungen sind in der Datei %appdata%\Code\User\settings.json
+// gespeichert.
+// Hier werden nur Einstellungen gespeichert, die von den Standardeinstellungen
+// abweichen.
+
 {
-    "python.testing.pytestArgs": [
-        "."
-    ],
-    "python.testing.unittestEnabled": false,
-    "python.testing.pytestEnabled": true,
-
-    "python.linting.pylintEnabled": true,
-    "python.linting.pylintArgs": [
-        "--disable=C0114",
-        "--disable=C0115",
-        "--disable=C0116"
-    ],
-
-    "python.linting.flake8Enabled": true,
-    "python.linting.flake8Args": [
-        "--ignore=E501"
-    ],
-
-    "editor.rulers": [80],
-
-    "files.exclude": {
-        "**/.pytest_cache": true,
-        "**/.vscode": false,
-        "**/__pycache__": true
-    },
-    {
-        "commands": [
-            {
-                "command": "extension.createPythonFile",
-                "title": "Neue PYTHON Datei",
-                "category": "Benutzerdefiniert"
-            }
-        ]
-    }
+    "editor.fontSize": 14,
+    "editor.lineHeight": 22,
+    "editor.fontFamily": "'Fira Code', 'Courier New', monospace",
+    "editor.fontLigatures": true,
+    "editor.formatOnPaste": true,
+    "editor.formatOnType": true,
+    "editor.minimap.enabled": false,
+    "editor.renderWhitespace": "all",
+    "editor.wordWrap": "on",
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 1000,
+    "files.insertFinalNewline": true,
+    "files.trimTrailingWhitespace": true,
+    "git.autofetch": true,
+    "git.confirmSync": false,
+    "git.enableSmartCommit": true,
 }
