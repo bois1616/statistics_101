@@ -1,6 +1,5 @@
 import random
-from icecream import ic
-
+from icecream import ic  # type: ignore
 
 # Konfiguriere das Ausgabeformat
 def custom_output(output):

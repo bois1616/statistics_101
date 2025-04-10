@@ -1,5 +1,5 @@
 import math
-from scipy.stats import norm
+from scipy.stats import norm # type: ignore[import]
 
 # Black-Scholes function to calculate call option price
 def black_scholes_call(CurrentStockPrice: float,
@@ -20,8 +20,8 @@ def black_scholes_call(CurrentStockPrice: float,
     d2 = d1 - sigma * sqrt(T)
     """
     d1 = (math.log(CurrentStockPrice / StrikePrice) +
-          (risk_free_rate + 0.5 * volatility ** 2) * TimeToMaturity) /
-    (volatility * math.sqrt(TimeToMaturity))
+          (risk_free_rate + 0.5 * volatility ** 2) * TimeToMaturity)
+    d1 = d1 / (volatility * math.sqrt(TimeToMaturity))
     d2 = d1 - volatility * math.sqrt(TimeToMaturity)
     call_price = CurrentStockPrice * norm.cdf(d1) - StrikePrice * math.exp(-risk_free_rate * TimeToMaturity) * norm.cdf(d2)
     return call_price

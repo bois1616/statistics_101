@@ -1,7 +1,7 @@
-from sklearn.datasets import load_iris
-from sklearn.model_selection import train_test_split
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.metrics import accuracy_score
+from sklearn.datasets import load_iris  # type: ignore
+from sklearn.model_selection import train_test_split # type: ignore
+from sklearn.neighbors import KNeighborsClassifier # type: ignore
+from sklearn.metrics import accuracy_score # type: ignore
 
 # Laden des Iris-Datensatzes
 iris = load_iris()
@@ -12,11 +12,11 @@ labels = iris.target
 
 # Aufteilen des Datensatzes in Trainings- und Testdaten
 # 70% der Daten werden für das Training verwendet, 30% für das Testen
-# Der random_state wird beliebig auf 42 gesetzt, damit die Aufteilung 
+# Der random_state wird beliebig auf 42 gesetzt, damit die Aufteilung
 # reproduzierbar ist
 feature_training, feature_test, label_training, label_test = \
-    train_test_split(features, labels, 
-                               test_size=0.3, 
+    train_test_split(features, labels,
+                               test_size=0.3,
                                random_state=42)
 
 # Erstellen und Trainieren des k-NN-Klassifikators
